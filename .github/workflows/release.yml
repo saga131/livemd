@@ -19,10 +19,7 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: 提取版本号（tag v0.2.0 → 0.2.0，版本码按 semver 加权）
+      - name: 提取版本号（semver 加权版本码）
         id: ver
         run: |
           V="${GITHUB_REF_NAME#v}"
