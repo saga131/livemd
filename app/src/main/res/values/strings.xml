@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LiveMD</string>
+    <string name="settings_title">服务器设置</string>
+    <string name="action_sync">同步</string>
+    <string name="action_settings">设置</string>
+    <string name="hint_uri">服务器地址（如 https://your-server.com:5984）</string>
+    <string name="hint_db">数据库名（小写字母，如 myvault）</string>
+    <string name="hint_user">用户名</string>
+    <string name="hint_pass">密码</string>
+    <string name="hint_passphrase">E2EE 加密密码短语（未开启加密可留空）</string>
+    <string name="save">保存</string>
+    <string name="test_connection">测试连接</string>
+    <string name="empty_list">还没有笔记\n\n点右上角"同步"从服务器拉取</string>
+    <string name="reader_pane_empty">← 选择左侧笔记阅读</string>
+</resources>

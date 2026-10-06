@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_sync"
+        android:title="@string/action_sync"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_search"
+        android:title="搜索"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_outline"
+        android:title="大纲"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_find"
+        android:title="文内查找"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+</menu>

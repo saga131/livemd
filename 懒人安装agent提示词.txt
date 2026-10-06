@@ -1,0 +1,54 @@
+
+
+# 任务：帮我从零搭建 Obsidian 多端同步 + 手机阅读器（我是零基础新手）
+
+我是 Obsidian 新手，电脑上已装 Obsidian（无任何插件），有一台 Android 手机。
+请你以"全程代办 + 每步给我截图级说明"的方式，帮我搭好以下完整体系：
+
+【目标架构】
+1. 电脑 Obsidian 编辑笔记 ⇄ 云端同步数据库 ⇄ 手机上的 LiveMD 阅读 App（已由朋友提供 APK 安装包，文件名 app-debug.apk，我会发给你/已发给你）
+2. 手机 App 只读：打开就能看到电脑上的全部笔记，自动增量同步
+
+【硬性约束（不可违反）】
+- 全部使用免费方案，不花钱
+- 我的网络在中国大陆，优先选大陆可直连的服务
+- 同步后端必须是 CouchDB 兼容协议（REST API：_find、_bulk_get、_changes、_all_docs、_local 文档）
+  ——手机 App 只会讲 CouchDB 协议。因此禁止推荐 Cloudflare R2 / S3 / 坚果云 / Remotely Save 等非 CouchDB 方案
+- 数据库名只能用小写字母
+- 我是新手：每一步都告诉我"点哪里、填什么、成功长什么样"，命令由你生成我来粘贴
+
+【推荐路线（按顺序尝试）】
+路线A（首选，零服务器）：IBM Cloudant 免费层
+- 注册 cloud.ibm.com 免费 Lite 账户（无需信用卡），创建 Cloudant 服务（区域选东京/大阪等离大陆近的）
+- 创建一个名为 obsidian 的数据库；生成 Service Credential 凭据
+- 验证：用 curl 能对 https://<账户>.cloudantnosqldb.appdomain.cloud 完成认证和读写
+- 注意：Lite 层 30 天无写入会被清空，提醒我日常使用即天然保活
+路线B（A 失败或想要完全自主可控）：Oracle Cloud 永久免费 VPS
+- 注册 Always Free 账户（需信用卡验证但不扣费），开一台首尔/东京的 ARM 小主机
+- 在上面 Docker 部署 CouchDB 3.x（带 must_revalidate 配置：single_node、require_valid_user、
+  CORS 允许 app://obsidian.md, capacitor://localhost, http://localhost, https://localhost）
+- 用 DuckDNS 免费子域名 + Let's Encrypt 证书上 HTTPS（手机端必须 HTTPS）
+路线C：以上都注册失败 → 你再调研一个当前确实免费且大陆可直连的 CouchDB 托管，先跟我确认再动手
+
+【电脑端 Obsidian 配置】
+1. 安装社区插件 Self-hosted LiveSync（设置里关掉所有实验特性，尤其 chunk 打包）
+2. 连接服务器：填 URI/凭据/数据库名 → 点 Test → Check → 把报错项逐个 Fix
+3. 同步模式选 LiveSync；开启端到端加密（E2EE 算法选 V2/HKDF）并设置一个强密码短语
+   ——密码短语必须让我抄在纸上，手机 App 要填同一个
+4. 手机上已同步的笔记里若有图片，电脑端正常粘贴即可（会被自动同步）
+
+【手机端配置（我会先自己装好 app-debug.apk）】
+App 内菜单「设置」依次填：服务器地址（和电脑端相同）、数据库名、用户名、密码、
+E2EE 密码短语（和电脑端完全一致）。保存后主界面点「同步」。
+如果开启了 E2EE 而手机端解密失败，优先检查密码短语是否与电脑端一致。
+
+【验收清单（全部通过才算完成）】
+1. 电脑 Obsidian 新建一篇带中文标题/图片/公式($$...$$)的笔记 → 手机点同步后能读到，图片和公式正常显示
+2. 手机端启用「选择同步范围」目录勾选功能正常（进目录页不卡顿超过 10 秒，卡了就点"刷新目录"）
+3. 电脑改一处文字 → 一分钟内手机端点同步能看到变化
+4. 手机杀掉 App 重开 → 自动回到上次阅读位置
+5. 你把最终的所有凭据、地址、密码短语整理成一张表格给我保存（密码短语单独强调）
+
+【安全与维护提醒（完成后告诉我）】
+- 同步 ≠ 备份：教我在电脑端配置每周把 vault 文件夹压缩备份一次
+- 不要在任何聊天窗口里明文发送密码短语
