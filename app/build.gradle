@@ -11,8 +11,9 @@ android {
         applicationId "com.livemd.reader"
         minSdk 26
         targetSdk 34
-        versionCode 1
-        versionName "0.1.0"
+        // CI 从 git tag 注入（如 v0.2.0 → 0.2.0 / 版本码按 semver 加权）；本地构建默认 0.1.0
+        versionCode ((project.findProperty("appVersionCode") ?: "100").toString().toInteger())
+        versionName (project.findProperty("appVersionName") ?: "0.1.0")
     }
 
     buildTypes {

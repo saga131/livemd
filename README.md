@@ -39,6 +39,16 @@
 
 或直接用 Android Studio 打开本目录。
 
+## 发新版
+
+打 tag 推送即可，GitHub Actions 会自动构建并发布 Release（无需本地构建）：
+
+```bash
+python release.py 0.2.0   # 自动提交变更 → 打 tag v0.2.0 → 推送 → 云端出包
+```
+
+进度见仓库 Actions 页，产物自动挂到 Releases。
+
 ## 使用
 
 1. 先在 Obsidian（桌面端）安装 Self-hosted LiveSync 插件，按其官方文档
